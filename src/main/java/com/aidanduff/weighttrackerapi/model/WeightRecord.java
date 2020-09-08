@@ -29,10 +29,9 @@ public class WeightRecord {
 	@Column(name = "WEIGHT")
 	private double weight;
 
-	public WeightRecord(String userName, LocalDateTime createTimeStamp, double weight) {
+	public WeightRecord(String userName, double weight) {
 		super();
 		this.userName = userName;
-		this.createTimeStamp = createTimeStamp;
 		this.weight = weight;
 	}
 	
