@@ -1,8 +1,9 @@
 package com.aidanduff.weighttrackerapi.service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.aidanduff.weighttrackerapi.dao.WeightRecordRepository;
@@ -21,5 +22,14 @@ public class WeightRecordService {
 	public WeightRecord addRecord(WeightRecord weightRecord) {
 		System.out.println(weightRecord.getUserName());
 		return weightRecordRepository.save(weightRecord);
+	}
+
+	public List<WeightRecord> getAllWeightRecords() {
+		List<WeightRecord> weightRecords = new ArrayList<>();
+		
+		weightRecordRepository.findAll()
+			.forEach(weightRecords::add);
+		
+		return weightRecords;
 	}
 }

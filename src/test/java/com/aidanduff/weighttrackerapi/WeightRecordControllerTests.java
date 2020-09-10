@@ -1,10 +1,15 @@
 package com.aidanduff.weighttrackerapi;
 
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.mockito.Mockito.when;
 
@@ -36,7 +41,7 @@ public class WeightRecordControllerTests {
 	private WeightRecordController weightRecordController;
 	
 	@Test
-	public void postNewItemShouldSucceed() throws Exception {
+	public void postNewWeightRecordShouldSucceed() throws Exception {
 		WeightRecord weightRecord = new WeightRecord("Joe Bloggs", 65.5);
 		String json = new ObjectMapper().writeValueAsString(weightRecord);
 		
@@ -50,6 +55,21 @@ public class WeightRecordControllerTests {
 				.andDo(print())
                 .andExpect(status().isOk());
 	}
+	
+//	@Test
+//	public void listShouldbeReturnedFromGetAll() throws Exception {
+//		List<WeightRecord> weightRecordList = new ArrayList<>();
+//		weightRecordList.add(new WeightRecord("Joe Bloggs", 65.5));
+//		when(weightRecordService.getAllWeightRecords())
+//				.thenReturn(weightRecordList);
+//		
+//		this.mockMvc.perform(get("/weightRecords"))
+//			.andDo(print())
+//			.andExpect(status().isOk())
+//			.andExpect(content().contentType(MediaType.APPLICATION_JSON));	
+//		
+//		assertEquals(ArrayList.class, weightRecordController.getAllWeightRecords().getBody().getClass());
+//	}
 	
 
 }
