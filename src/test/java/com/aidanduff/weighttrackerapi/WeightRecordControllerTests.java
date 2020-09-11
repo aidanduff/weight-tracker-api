@@ -11,16 +11,16 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.mockito.Mockito.when;
-
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 
 import com.aidanduff.weighttrackerapi.controller.WeightRecordController;
 import com.aidanduff.weighttrackerapi.model.WeightRecord;
@@ -48,12 +48,16 @@ public class WeightRecordControllerTests {
 		when(weightRecordService.addRecord(weightRecord))
 			.thenReturn(weightRecord);
 		
-		this.mockMvc.perform(post("/weightRecords")
+		MvcResult result = this.mockMvc.perform(post("/weightRecords")
 				.contentType(MediaType.APPLICATION_JSON)
 	            .content(json)
 	            .accept(MediaType.APPLICATION_JSON))
 				.andDo(print())
-                .andExpect(status().isCreated());
+                .andExpect(status().isCreated())
+                .andReturn();
+		
+		assertEquals(WeightRecord.class, weightRecordController.addRecord(weightRecord).getBody().getClass());
+		
 	}
 	
 	@Test
