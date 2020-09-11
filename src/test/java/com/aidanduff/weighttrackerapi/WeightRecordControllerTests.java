@@ -56,20 +56,37 @@ public class WeightRecordControllerTests {
                 .andExpect(status().isOk());
 	}
 	
-//	@Test
-//	public void listShouldbeReturnedFromGetAll() throws Exception {
-//		List<WeightRecord> weightRecordList = new ArrayList<>();
-//		weightRecordList.add(new WeightRecord("Joe Bloggs", 65.5));
-//		when(weightRecordService.getAllWeightRecords())
-//				.thenReturn(weightRecordList);
-//		
-//		this.mockMvc.perform(get("/weightRecords"))
-//			.andDo(print())
-//			.andExpect(status().isOk())
-//			.andExpect(content().contentType(MediaType.APPLICATION_JSON));	
-//		
-//		assertEquals(ArrayList.class, weightRecordController.getAllWeightRecords().getBody().getClass());
-//	}
+	@Test
+	public void listShouldbeReturnedFromGetAll() throws Exception {
+		List<WeightRecord> weightRecordList = new ArrayList<>();
+		weightRecordList.add(new WeightRecord("JoeBloggs", 65.5));
+		when(weightRecordService.getAllWeightRecords())
+				.thenReturn(weightRecordList);
+		
+		this.mockMvc.perform(get("/weightRecords"))
+			.andDo(print())
+			.andExpect(status().isOk())
+			.andExpect(content().contentType(MediaType.APPLICATION_JSON));	
+		System.err.println("size" + weightRecordController.getAllWeightRecords().getBody().size());
+		
+		assertEquals(ArrayList.class, weightRecordController.getAllWeightRecords().getBody().getClass());
+	}
+	
+	@Test
+	public void listShouldbeReturnedFromGetAllByUser() throws Exception {
+		List<WeightRecord> weightRecordList = new ArrayList<>();
+		weightRecordList.add(new WeightRecord("JoeBloggs", 65.5));
+		weightRecordList.add(new WeightRecord("JoeBloggs", 65.0));
+		when(weightRecordService.getAllWeightRecordsByName("JoeBloggs"))
+				.thenReturn(weightRecordList);
+		
+		this.mockMvc.perform(get("/weightRecords/JoeBloggs"))
+			.andDo(print())
+			.andExpect(status().isOk())
+			.andExpect(content().contentType(MediaType.APPLICATION_JSON));	
+		
+		assertEquals(ArrayList.class, weightRecordController.getAllWeightRecordsByName("JoeBloggs").getBody().getClass());
+	}
 	
 
 }

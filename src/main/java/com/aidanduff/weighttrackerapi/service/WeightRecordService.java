@@ -32,4 +32,13 @@ public class WeightRecordService {
 		
 		return weightRecords;
 	}
+
+	public List<WeightRecord> getAllWeightRecordsByName(String name) {
+		List<WeightRecord> weightRecords = new ArrayList<>();
+		
+		weightRecordRepository.findAllByUserName(name)
+			.forEach(weightRecords::add);
+		
+		return weightRecords;
+	}
 }

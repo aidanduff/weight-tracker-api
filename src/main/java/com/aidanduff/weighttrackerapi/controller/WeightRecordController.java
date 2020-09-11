@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -31,8 +32,14 @@ public class WeightRecordController {
 	}
 	
 	@GetMapping("/weightRecords")
-	public ResponseEntity<List<WeightRecord>> getAllItems() {
+	public ResponseEntity<List<WeightRecord>> getAllWeightRecords() {
 		List<WeightRecord> weightRecords = weightRecordService.getAllWeightRecords();
+		return weightRecords.size() > 0? new ResponseEntity<>(weightRecords, HttpStatus.OK): ResponseEntity.noContent().build();
+	}
+	
+	@GetMapping("/weightRecords/{name}")
+	public ResponseEntity<List<WeightRecord>> getAllWeightRecordsByName(@PathVariable String name) {
+		List<WeightRecord> weightRecords = weightRecordService.getAllWeightRecordsByName(name);
 		return weightRecords.size() > 0? new ResponseEntity<>(weightRecords, HttpStatus.OK): ResponseEntity.noContent().build();
 	}
 
