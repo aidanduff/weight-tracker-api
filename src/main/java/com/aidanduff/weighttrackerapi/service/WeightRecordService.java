@@ -20,7 +20,6 @@ public class WeightRecordService {
 	}
 
 	public WeightRecord addRecord(WeightRecord weightRecord) {
-		System.out.println(weightRecord.getUserName());
 		return weightRecordRepository.save(weightRecord);
 	}
 

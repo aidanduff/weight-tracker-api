@@ -42,18 +42,18 @@ public class WeightRecordControllerTests {
 	
 	@Test
 	public void postNewWeightRecordShouldSucceed() throws Exception {
-		WeightRecord weightRecord = new WeightRecord("Joe Bloggs", 65.5);
+		WeightRecord weightRecord = new WeightRecord("JoeBloggs", 65.5);
 		String json = new ObjectMapper().writeValueAsString(weightRecord);
 		
 		when(weightRecordService.addRecord(weightRecord))
 			.thenReturn(weightRecord);
 		
-		this.mockMvc.perform(post("/add")
+		this.mockMvc.perform(post("/weightRecords")
 				.contentType(MediaType.APPLICATION_JSON)
 	            .content(json)
 	            .accept(MediaType.APPLICATION_JSON))
 				.andDo(print())
-                .andExpect(status().isOk());
+                .andExpect(status().isCreated());
 	}
 	
 	@Test
@@ -67,9 +67,9 @@ public class WeightRecordControllerTests {
 			.andDo(print())
 			.andExpect(status().isOk())
 			.andExpect(content().contentType(MediaType.APPLICATION_JSON));	
-		System.err.println("size" + weightRecordController.getAllWeightRecords().getBody().size());
 		
 		assertEquals(ArrayList.class, weightRecordController.getAllWeightRecords().getBody().getClass());
+		assertEquals(1, weightRecordController.getAllWeightRecords().getBody().size());
 	}
 	
 	@Test

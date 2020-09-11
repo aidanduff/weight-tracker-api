@@ -25,10 +25,9 @@ public class WeightRecordController {
 		return "<h1>" + weightRecordService.welcome() +"</h1>";
 	}
 	
-	@PostMapping("/add")
-	public void addRecord(@RequestBody WeightRecord weightRecord) {
-		System.out.println(weightRecord.getUserName());
-		weightRecordService.addRecord(weightRecord);
+	@PostMapping("/weightRecords")
+	public ResponseEntity<WeightRecord> addRecord(@RequestBody WeightRecord weightRecord) {
+		return new ResponseEntity<>(weightRecordService.addRecord(weightRecord), HttpStatus.CREATED);
 	}
 	
 	@GetMapping("/weightRecords")

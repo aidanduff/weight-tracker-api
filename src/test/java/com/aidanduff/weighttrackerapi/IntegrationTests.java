@@ -28,10 +28,10 @@ public class IntegrationTests {
 	
 	@Test
 	public void weightRecordShouldBeCreated() throws Exception {
-		WeightRecord weightRecord = new WeightRecord("Joe Bloggs", 100.5);
+		WeightRecord weightRecord = new WeightRecord("JoeBloggs", 100.5);
 		HttpEntity<WeightRecord> request = new HttpEntity<>(weightRecord);
-		ResponseEntity<WeightRecord> result = this.restTemplate.postForEntity("http://localhost:" + port + "/add", request, WeightRecord.class);
-		assertEquals(200, result.getStatusCodeValue());
+		ResponseEntity<WeightRecord> result = this.restTemplate.postForEntity("http://localhost:" + port + "/weightRecords", request, WeightRecord.class);
+		assertEquals(201, result.getStatusCodeValue());
 	}
 	
 	@Test
