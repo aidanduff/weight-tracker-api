@@ -42,7 +42,7 @@ public class WeightRecordService {
 		return weightRecords;
 	}
 	
-	public Optional<WeightRecord> getWeightRecord(long id) {
-		return weightRecordRepository.findById(id);
+	public WeightRecord getWeightRecord(long id) {
+		return weightRecordRepository.findById(id).get();
 	}
 }

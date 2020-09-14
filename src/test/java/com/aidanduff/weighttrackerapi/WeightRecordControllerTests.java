@@ -93,6 +93,24 @@ public class WeightRecordControllerTests {
 		assertEquals(ArrayList.class, weightRecordController.getAllWeightRecordsByName("JoeBloggs").getBody().getClass());
 	}
 	
+	@Test
+	public void getWeightRecordShouldSucceed() throws Exception {
+		WeightRecord weightRecord = new WeightRecord("BillBrown", 80.0);
+		weightRecord.setId(1L);
+
+		when(weightRecordService.addRecord(weightRecord)).thenReturn(weightRecord);
+		when(weightRecordService.getWeightRecord(1)).thenReturn(weightRecord);
+		
+		this.mockMvc.perform(get("/weightRecord/1")
+				.contentType(MediaType.APPLICATION_JSON)
+	            .accept(MediaType.APPLICATION_JSON))
+				.andDo(print())
+                .andExpect(status().isFound());
+//                .andExpect(content().json("{'id': 1}"))
+//				.andExpect(content().json("{'name': 'Bird'}"))
+//				.andExpect(content().json("{'description': 'Winged Animal'}"));
+	}
+	
 	
 
 }

@@ -44,7 +44,7 @@ public class WeightRecordController {
 	
 	@GetMapping("/weightRecord/{id}")
 	public ResponseEntity<WeightRecord> getItem(@PathVariable long id) {
-		WeightRecord weightRecord = weightRecordService.getWeightRecord(id).get();
+		WeightRecord weightRecord = weightRecordService.getWeightRecord(id);
 		return weightRecord != null? new ResponseEntity<>(weightRecord, HttpStatus.FOUND): ResponseEntity.notFound().build();
 	}
 
