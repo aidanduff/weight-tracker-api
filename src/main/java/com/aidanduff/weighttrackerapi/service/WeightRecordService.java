@@ -45,4 +45,14 @@ public class WeightRecordService {
 	public WeightRecord getWeightRecord(long id) {
 		return weightRecordRepository.findById(id).get();
 	}
+	
+	public WeightRecord deleteWeightRecord(long id) {
+		WeightRecord weightRecord = weightRecordRepository.findById(id).get();
+		if(weightRecord == null) {
+			return null;
+		}
+		
+		weightRecordRepository.deleteById(id);
+		return weightRecord;
+	}
 }

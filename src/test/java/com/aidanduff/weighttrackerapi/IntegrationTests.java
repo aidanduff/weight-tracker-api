@@ -11,6 +11,7 @@ import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.annotation.DirtiesContext;
 
@@ -69,6 +70,15 @@ public class IntegrationTests {
 		ResponseEntity<WeightRecord> response = this.restTemplate.postForEntity("http://localhost:" + port + "/weightRecords", request, WeightRecord.class);
 		ResponseEntity<WeightRecord> result = this.restTemplate.getForEntity("http://localhost:" + port + "/weightRecord/" + response.getBody().getId() + "", WeightRecord.class);
 		assertEquals(302, result.getStatusCodeValue());
+	}
+	
+	@Test
+	public void weightRecordShouldBeDeleted() throws Exception {
+		WeightRecord weightRecord = new WeightRecord("VulfPeck", 55.0);
+		HttpEntity<WeightRecord> request = new HttpEntity<>(weightRecord);
+		ResponseEntity<WeightRecord> response = this.restTemplate.postForEntity("http://localhost:" + port + "/weightRecords", request, WeightRecord.class);
+		ResponseEntity<WeightRecord> result = restTemplate.exchange("http://localhost:" + port + "/weightRecord/" + response.getBody().getId() + "", HttpMethod.DELETE, request, WeightRecord.class);
+		assertEquals(204, result.getStatusCodeValue());
 	}
 
 }

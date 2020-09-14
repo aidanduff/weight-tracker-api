@@ -5,12 +5,13 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.aidanduff.weighttrackerapi.model.WeightRecord;
 import com.aidanduff.weighttrackerapi.service.WeightRecordService;
 
@@ -43,9 +44,16 @@ public class WeightRecordController {
 	}
 	
 	@GetMapping("/weightRecord/{id}")
-	public ResponseEntity<WeightRecord> getItem(@PathVariable long id) {
+	public ResponseEntity<WeightRecord> getWeightRecord(@PathVariable long id) {
 		WeightRecord weightRecord = weightRecordService.getWeightRecord(id);
 		return weightRecord != null? new ResponseEntity<>(weightRecord, HttpStatus.FOUND): ResponseEntity.notFound().build();
+	}
+	
+	@Transactional
+	@DeleteMapping("/weightRecord/{id}")
+	public ResponseEntity<WeightRecord> deleteWeightRecord(@PathVariable long id){
+		WeightRecord weightRecord = weightRecordService.deleteWeightRecord(id);
+		return weightRecord != null? ResponseEntity.noContent().build() : ResponseEntity.notFound().build();
 	}
 
 }
