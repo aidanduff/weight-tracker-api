@@ -111,6 +111,20 @@ public class WeightRecordControllerTests {
 //				.andExpect(content().json("{'description': 'Winged Animal'}"));
 	}
 	
+	@Test
+	public void deleteWeightRecordShouldSucceed() throws Exception {
+		WeightRecord weightRecord = new WeightRecord("Neesha", 15.0);
+
+		when(weightRecordService.deleteWeightRecord(100)).thenReturn(weightRecord);
+		weightRecord.setId(100L);
+				
+		this.mockMvc.perform(delete("/weightRecord/100")
+				.contentType(MediaType.APPLICATION_JSON)
+	            .accept(MediaType.APPLICATION_JSON))
+				.andDo(print())
+                .andExpect(status().isNoContent());
+	}
+	
 	
 
 }
