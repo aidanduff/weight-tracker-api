@@ -9,6 +9,4 @@ import com.aidanduff.weighttrackerapi.model.WeightRecord;
 public interface WeightRecordRepository extends CrudRepository<WeightRecord, Long> {
 
 	List<WeightRecord> findAllByUserName(String name);
-
-
 }

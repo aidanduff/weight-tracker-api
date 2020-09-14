@@ -41,5 +41,11 @@ public class WeightRecordController {
 		List<WeightRecord> weightRecords = weightRecordService.getAllWeightRecordsByName(name);
 		return weightRecords.size() > 0? new ResponseEntity<>(weightRecords, HttpStatus.OK): ResponseEntity.noContent().build();
 	}
+	
+	@GetMapping("/weightRecord/{id}")
+	public ResponseEntity<WeightRecord> getItem(@PathVariable long id) {
+		WeightRecord weightRecord = weightRecordService.getWeightRecord(id).get();
+		return weightRecord != null? new ResponseEntity<>(weightRecord, HttpStatus.FOUND): ResponseEntity.notFound().build();
+	}
 
 }

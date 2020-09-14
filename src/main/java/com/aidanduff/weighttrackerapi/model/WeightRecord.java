@@ -11,6 +11,8 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.CreationTimestamp;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "RECORDS")
 public class WeightRecord {
@@ -61,6 +63,10 @@ public class WeightRecord {
 
 	public void setWeight(double weight) {
 		this.weight = weight;
+	}
+
+	public Long getId() {
+		return id;
 	}
 	
 	

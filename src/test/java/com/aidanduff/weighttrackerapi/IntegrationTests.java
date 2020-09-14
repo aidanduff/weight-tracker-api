@@ -61,5 +61,14 @@ public class IntegrationTests {
 		ResponseEntity<List> result = this.restTemplate.getForEntity("http://localhost:" + port + "/weightRecords/JoeBloggs", List.class);
 		assertEquals(200, result.getStatusCodeValue());
 	}
+	
+	@Test
+	public void weightRecordShouldBeRetrievedById() throws Exception {
+		WeightRecord weightRecord = new WeightRecord("JaneDoe", 85.0);
+		HttpEntity<WeightRecord> request = new HttpEntity<>(weightRecord);
+		ResponseEntity<WeightRecord> response = this.restTemplate.postForEntity("http://localhost:" + port + "/weightRecords", request, WeightRecord.class);
+		ResponseEntity<WeightRecord> result = this.restTemplate.getForEntity("http://localhost:" + port + "/weightRecord/" + response.getBody().getId() + "", WeightRecord.class);
+		assertEquals(302, result.getStatusCodeValue());
+	}
 
 }
