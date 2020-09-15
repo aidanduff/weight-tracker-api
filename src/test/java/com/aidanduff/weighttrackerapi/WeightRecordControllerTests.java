@@ -105,10 +105,9 @@ public class WeightRecordControllerTests {
 				.contentType(MediaType.APPLICATION_JSON)
 	            .accept(MediaType.APPLICATION_JSON))
 				.andDo(print())
-                .andExpect(status().isFound());
-//                .andExpect(content().json("{'id': 1}"))
-//				.andExpect(content().json("{'name': 'Bird'}"))
-//				.andExpect(content().json("{'description': 'Winged Animal'}"));
+                .andExpect(status().isFound())
+				.andExpect(content().json("{'userName': 'BillBrown'}"))
+				.andExpect(content().json("{'weight': 80.0}"));
 	}
 	
 	@Test
